@@ -1,0 +1,9 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="vrogcraft"
+version="1.5.35"
+displayName="Vrogcraft"
+description='''This is my first Forge 1.20.1 mod!'''
+authors="OkelahBegitu"

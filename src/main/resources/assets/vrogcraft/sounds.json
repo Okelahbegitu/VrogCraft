@@ -1,0 +1,83 @@
+{
+  "minion_summon": {
+    "sounds": [
+      {
+        "name": "vrogcraft:1x-minion-kill-them-all",
+        "stream": false
+      }
+    ]
+  },
+  "minion_attack": {
+    "sounds": [
+      {
+        "name": "vrogcraft:1x-minion-kill-them-all",
+        "stream": false
+      }
+    ]
+  },
+  "minion_idle": {
+    "sounds": [
+      {
+        "name": "vrogcraft:oi-oi-forsaken",
+        "stream": false
+      }
+    ]
+  },
+  "manifestation_sword_mass_infection_sfx": {
+    "sounds": [
+      {
+        "name": "vrogcraft:mass_infection_sfx",
+        "stream": false
+      }
+    ]
+  },
+  "manifestation_sword_mass_infection_vc": {
+    "sounds": [
+      {
+        "name": "vrogcraft:mass_infection_vc",
+        "stream": false
+      }
+    ]
+  },
+  "manifestation_sword_entanglement_sfx": {
+    "sounds": [
+      {
+        "name": "vrogcraft:entanglement_sfx",
+        "stream": false
+      }
+    ]
+  },
+  "manifestation_sword_entanglement_vc": {
+    "sounds": [
+      {
+        "name": "vrogcraft:entanglement_vc",
+        "stream": false
+      }
+    ]
+  },
+  "manifestation_sword_unstable_eye_sfx": {
+    "sounds": [
+      {
+        "name": "vrogcraft:unstable_eye_sfx",
+        "stream": false
+      }
+    ]
+  },
+  "manifestation_sword_unstable_eye_vc": {
+    "sounds": [
+      {
+        "name": "vrogcraft:unstable_eye_vc",
+        "stream": false
+      }
+    ]
+  },
+  "manifestation_sword_necromancy_vc": {
+    "sounds": [
+      {
+        "name": "vrogcraft:necromancy_vc",
+        "stream": false
+      }
+    ]
+  }
+}
+
