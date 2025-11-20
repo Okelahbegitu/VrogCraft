@@ -34,6 +34,7 @@ public class MassInfectionC2SPacket {
             if (player != null) {
                 ItemStack mainHand = player.getMainHandItem();
                 if (mainHand.getItem() instanceof ManifestationSword && tag.getInt("MassInfectionCD") <= 0) {
+
                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 100));
                     player.level().playSound(
                             null, // semua pemain di sekitar

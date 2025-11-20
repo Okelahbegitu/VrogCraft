@@ -4,6 +4,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 import net.vrogcraft.entity.projectile.Entanglement;
@@ -28,6 +30,7 @@ public class EntanglementC2SPacket {
             if (player != null) {
                 ItemStack mainHand = player.getMainHandItem();
                 if (mainHand.getItem() instanceof ManifestationSword && tag.getInt("EntanglementCD") <= 0) {
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 100));
                     player.level().playSound(
                             null, // semua pemain di sekitar
                             player.blockPosition(), // posisi sound

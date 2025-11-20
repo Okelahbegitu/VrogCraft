@@ -1,6 +1,7 @@
 package net.vrogcraft.dualwield.util.event;// File: net.vrogcraft.util.DualSwordUtil.java
 
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +24,12 @@ public class DualSwordUtil {
             // ----------------------------------------------------
             // LOGIKA PELEPASAN OFF-HAND (Saat Main Sword dilepas)
             // ----------------------------------------------------
+            Inventory inventory = player.getInventory();
+            for(ItemStack itemStack : inventory.items){
+                if(itemStack.getItem() == offSword){
+                    itemStack.shrink(1);
+                }
+            }
             if (player.getOffhandItem().is(offSword)) {
 
                 ItemStack off = player.getOffhandItem();

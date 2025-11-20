@@ -7,7 +7,7 @@ plugins {
 ext {
     mod_id = 'vrogcraft'          // MODID mod
     mod_name = 'Vrogcraft'        // Nama mod
-    mod_version = '1.6'         // Versi mod
+    mod_version = '1.6.1'         // Versi mod
     mod_authors = 'OkelahBegitu'
     mod_description = 'Mod for vrog server'
     mod_license = 'MIT'

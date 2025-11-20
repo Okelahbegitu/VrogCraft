@@ -37,9 +37,14 @@ public class UnstableEyeC2SPacket {
             ServerPlayer player = context.getSender();
             if (player == null) return;
             Level level = player.level();
+            ItemStack stack = player.getMainHandItem();
+            CompoundTag tag = stack.getOrCreateTag();
             // Radius 150
             double radius = 150.0D;
-            if (player.getMainHandItem().is(ModItems.MANIFESTATION_SWORD.get())) {
+            if (player.getMainHandItem().is(ModItems.MANIFESTATION_SWORD.get()) && tag.getInt("UnStableEyeCD") <= 0) {
+                List<Entity> nearby = level.getEntities(player, player.getBoundingBox().inflate(radius));
+
+                ItemStack mainHand = player.getMainHandItem();
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 1, false, false));
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1, false, false));
                 player.level().playSound(
@@ -51,26 +56,21 @@ public class UnstableEyeC2SPacket {
                         1.0f  // pitch
                 );
                 DelayedActionManager.startDelay(player, 15, () -> {
-                List<Entity> nearby = level.getEntities(player, player.getBoundingBox().inflate(radius));
-                ItemStack stack = player.getMainHandItem();
-                CompoundTag tag = stack.getOrCreateTag();
-                ItemStack mainHand = player.getMainHandItem();
-                if (mainHand.getItem() instanceof ManifestationSword && tag.getInt("UnStableEyeCD") <= 0) {
-                    player.level().playSound(
-                            null, // semua pemain di sekitar
-                            player.blockPosition(), // posisi sound
-                            ModSound.UNSTABLE_EYE_VC.get(), // SoundEvent
-                            SoundSource.PLAYERS, // kategori suara (PLAYER, NEUTRAL, BLOCKS, dll)
-                            1.0f, // volume
-                            1.0f  // pitch
-                    );
-                    for (Entity entity : nearby) {
-                        if (entity instanceof LivingEntity living && entity != player) {
-                            living.addEffect(new MobEffectInstance(MobEffects.GLOWING, 120, 0, false, false)); // 100 ticks = 5s
+
+                        player.level().playSound(
+                                null, // semua pemain di sekitar
+                                player.blockPosition(), // posisi sound
+                                ModSound.UNSTABLE_EYE_VC.get(), // SoundEvent
+                                SoundSource.PLAYERS, // kategori suara (PLAYER, NEUTRAL, BLOCKS, dll)
+                                1.0f, // volume
+                                1.0f  // pitch
+                        );
+                        for (Entity entity : nearby) {
+                            if (entity instanceof LivingEntity living && entity != player) {
+                                living.addEffect(new MobEffectInstance(MobEffects.GLOWING, 120, 0, false, false)); // 100 ticks = 5s
+                            }
                         }
-                    }
-                    tag.putInt("UnStableEyeCD", 30);
-                }
+                        tag.putInt("UnStableEyeCD", 30);
                 });
             }
         });

@@ -14,8 +14,9 @@ import net.vrogcraft.init.ModEntity;
 
 public class MassInfection extends AbstractArrow {
 
-    private int lifetime = 10;
-    private int tick2s = 0;
+    private int lifetime = 20;
+    private static final int TICKS_PER_SECOND = 20;
+    private final int tick2s = 0;
 
     // Constructor 1: Untuk registrasi (dipanggil oleh Forge)
     public MassInfection(EntityType<? extends MassInfection> type, Level world) {
@@ -37,19 +38,28 @@ public class MassInfection extends AbstractArrow {
 
     @Override
     public void tick() {
-        super.tick();
+        super.tick(); // panggil sekali saja
 
+        // server-side: lifetime
         if (!level().isClientSide) {
-            tick2s++;
-            if (tick2s >= 20) {
+            // kurangi lifetime tiap 20 tick (1 detik)
+            if (this.tickCount % TICKS_PER_SECOND == 0) {
                 lifetime--;
-                tick2s = 0;
-                if (lifetime <= 0) remove(RemovalReason.DISCARDED);
+                if (lifetime <= 0) {
+                    this.remove(RemovalReason.DISCARDED);
+                    return; // aman: sudah dihapus
+                }
             }
+
+            // jika butuh override collision / tembus blok, lakukan di sini
+            // contoh: this.noPhysics = true; // (jika field tersedia) atau setPos jika ingin
         }
 
+        // client-side: particle (misal spawn tiap 2 tick biar nggak berat)
         if (level().isClientSide) {
-            level().addParticle(ParticleTypes.FLAME, getX(), getY(), getZ(), 0, 0, 0);
+            if (this.tickCount % 2 == 0) {
+                level().addParticle(ParticleTypes.FLAME, getX(), getY(), getZ(), 0.0, 0.0, 0.0);
+            }
         }
     }
 

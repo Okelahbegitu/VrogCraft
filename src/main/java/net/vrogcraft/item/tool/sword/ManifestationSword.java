@@ -22,7 +22,7 @@ import java.util.List;
 public class ManifestationSword extends SwordItem {
 
     public ManifestationSword() {
-        super(ModTiers.MANIFESTATION_SWORD, 8, -2.4f,
+        super(ModTiers.MANIFESTATION_SWORD, 6, -2.4f,
                 new Item.Properties()
                         .rarity(ModRarities.VMYTHIC)
                         .fireResistant()

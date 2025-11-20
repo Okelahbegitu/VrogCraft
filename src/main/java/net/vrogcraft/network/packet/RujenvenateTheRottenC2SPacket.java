@@ -48,6 +48,7 @@ public class RujenvenateTheRottenC2SPacket {
             CompoundTag tag = stack.getOrCreateTag();
             Level level = player.level();
             if (tag.getInt("Soul") >=1 && player.getMainHandItem().getItem() instanceof ManifestationSword && tag.getInt("RujenvenateTheRottenCD") <= 0) {
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 100));
                 player.level().playSound(
                         null, // semua pemain di sekitar
                         player.blockPosition(), // posisi sound

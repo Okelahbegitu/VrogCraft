@@ -24,7 +24,8 @@ import java.awt.*;
 
 public class Entanglement extends AbstractArrow {
 
-    private int lifetime = 10; // detik
+    private int lifetime = 20; // detik
+    private static final int TICKS_PER_SECOND = 20;
     private int tick2s = 0;
     private boolean temporaryNophysics = false;
     private int noPhysicsTicks = 0;
@@ -47,25 +48,28 @@ public class Entanglement extends AbstractArrow {
 
     @Override
     public void tick() {
-        super.tick();
+        super.tick(); // panggil sekali saja
 
         // server-side: lifetime
         if (!level().isClientSide) {
-            Vec3 oldPos = position();
-            super.tick();
-            // tembus semua block
-            //this.setPos(getX(), getY(), getZ()); // ignore block collision
-            tick2s++;
-            if (tick2s >= 20) {
+            // kurangi lifetime tiap 20 tick (1 detik)
+            if (this.tickCount % TICKS_PER_SECOND == 0) {
                 lifetime--;
-                tick2s = 0;
-                if (lifetime <= 0) remove(RemovalReason.DISCARDED);
+                if (lifetime <= 0) {
+                    this.remove(RemovalReason.DISCARDED);
+                    return; // aman: sudah dihapus
+                }
             }
+
+            // jika butuh override collision / tembus blok, lakukan di sini
+            // contoh: this.noPhysics = true; // (jika field tersedia) atau setPos jika ingin
         }
 
-        // client-side: particle
+        // client-side: particle (misal spawn tiap 2 tick biar nggak berat)
         if (level().isClientSide) {
-            level().addParticle(ParticleTypes.FLAME, getX(), getY(), getZ(), 0, 0, 0);
+            if (this.tickCount % 2 == 0) {
+                level().addParticle(ParticleTypes.FLAME, getX(), getY(), getZ(), 0.0, 0.0, 0.0);
+            }
         }
     }
 
