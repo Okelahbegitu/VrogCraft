@@ -44,8 +44,8 @@ public class EntanglementC2SPacket {
                             1.0f, // volume
                             1.0f  // pitch
                     );
-                    DelayedActionManager.startDelay(player, 35, () -> {
-                        Entanglement.shoot(player.level(), player, 0.5f, 3f, 3);
+                    DelayedActionManager.startDelay(player, 25, () -> {
+                        Entanglement.shoot(player.level(), player, 3f, 3f, 3);
                         tag.putInt("EntanglementCD", 15);
                     });
 

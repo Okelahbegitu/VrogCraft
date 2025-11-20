@@ -3,19 +3,16 @@ package net.vrogcraft.client.renderer.entity.projectile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.vrogcraft.VrogcraftMod;
-import net.vrogcraft.entity.projectile.MassInfection;
-import net.minecraft.client.model.EntityModel;
 import net.vrogcraft.client.model.entity.projectile.ProMassInfection;
+import net.vrogcraft.entity.projectile.MassInfection;
 import org.jetbrains.annotations.NotNull;
 
 public class MassInfectionRenderer extends EntityRenderer<MassInfection> {
-    private final ProMassInfection<MassInfection> model;
+
+    private final ProMassInfection model;
 
     public MassInfectionRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -25,18 +22,19 @@ public class MassInfectionRenderer extends EntityRenderer<MassInfection> {
     @Override
     public void render(MassInfection entity, float entityYaw, float partialTicks,
                        PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+
         poseStack.pushPose();
 
-// Geser ke tengah entitas
-        poseStack.translate(0.0F, 0.0F, 0.0F);
+        // ===== OFFSET MODEL =====
+        // Jika model terlalu tinggi, ubah Y offset
+        poseStack.translate(0.0F, -1.5F, 0.0F);
 
-// ⚙️ Urutan rotasi seperti di ArrowRenderer
-        poseStack.mulPose(Axis.YP.rotationDegrees(entity.getYRot() - 90.0F)); // yaw dulu
-        poseStack.mulPose(Axis.ZP.rotationDegrees(entity.getXRot()));         // pitch setelah yaw
+        // ===== ROTASI =====
+        // Y = yaw, X = pitch
+        poseStack.mulPose(Axis.YP.rotationDegrees(entity.getYRot() - 90.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(entity.getXRot()));
 
-// Kalau masih miring 90°, tambah offset model
-// poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
-
+        // ===== RENDER MODEL =====
         model.renderToBuffer(
                 poseStack,
                 buffer.getBuffer(model.renderType(getTextureLocation(entity))),
@@ -46,16 +44,14 @@ public class MassInfectionRenderer extends EntityRenderer<MassInfection> {
         );
 
         poseStack.popPose();
+
+        // Memanggil render default (tidak wajib, tapi aman)
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
-
     }
-
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull MassInfection entity) {
-        return new ResourceLocation("vrogcraft", "textures/entity/projectile/mass_infection.png");
+        // Sesuaikan texture dengan item/projectile
+        return new ResourceLocation("vrogcraft", "textures/item/mass_infection.png");
     }
 }
-
-
-

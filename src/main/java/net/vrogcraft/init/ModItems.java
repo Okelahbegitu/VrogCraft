@@ -25,6 +25,8 @@ public class ModItems {
             () -> new EmeraldVrog());
     public static final RegistryObject<Item> NETHERITE_VROG = REGISTRY.register("netherite_vrog",
             () -> new NetheriteVrog());
+    public static final RegistryObject<Item> GEM_OF_MANIFESTATION = REGISTRY.register("gem_of_manifestation",
+            () -> new GemOfManifestation());
     public static final RegistryObject<Item> MANIFESTATION_SWORD = REGISTRY.register(
             "manifestation_sword",
             ManifestationSword::new

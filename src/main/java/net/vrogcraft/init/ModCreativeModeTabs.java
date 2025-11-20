@@ -18,6 +18,7 @@ public class ModCreativeModeTabs {
             event.accept(ModItems.DIAMOND_VROG.get());
             event.accept(ModItems.NETHERITE_VROG.get());
             event.accept(ModItems.EMERALD_VROG.get());
+            event.accept(ModItems.GEM_OF_MANIFESTATION.get());
         } else if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.MANIFESTATION_SWORD.get());
         }

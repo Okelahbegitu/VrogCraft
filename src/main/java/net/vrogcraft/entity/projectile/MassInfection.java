@@ -58,6 +58,7 @@ public class MassInfection extends AbstractArrow {
         super.doPostHurtEffects(entity);
         this.setNoPhysics(false);
         if (!level().isClientSide) {
+            entity.setHealth(entity.getHealth() - 10.0f);
             entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 5));
             entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 2));
         }
@@ -67,7 +68,7 @@ public class MassInfection extends AbstractArrow {
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
         if (!level().isClientSide()) {
-            level().explode(this, getX(), getY(), getZ(), 5.0f, Level.ExplosionInteraction.NONE);
+            level().explode(this, getX(), getY(), getZ(), 2.5f, Level.ExplosionInteraction.NONE);
             this.discard();
         }
     }
@@ -76,16 +77,21 @@ public class MassInfection extends AbstractArrow {
         if (world.isClientSide) return;
 
         MassInfection projectile = new MassInfection(world, shooter);
+
+        // 🔥 Tentukan posisi awal dulu
+        double x = shooter.getX() - (double)(Mth.cos(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F);
+        double y = shooter.getEyeY() - 0.15F; // 🔥 bukan -1.0F
+        double z = shooter.getZ() - (double)(Mth.sin(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F);
+        projectile.setPos(x, y, z);
+
+        // 🔥 Baru tentukan arah
         projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot(), 0.0F, velocity, inaccuracy);
-        projectile.setPos(
-                shooter.getX() - (double)(Mth.cos(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F),
-                shooter.getEyeY() - 1.0F,
-                shooter.getZ() - (double)(Mth.sin(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F)
-        );
+
         projectile.setOwner(shooter);
         projectile.setPierceLevel((byte) piercing);
         projectile.setNoGravity(true);
 
         world.addFreshEntity(projectile);
     }
+
 }

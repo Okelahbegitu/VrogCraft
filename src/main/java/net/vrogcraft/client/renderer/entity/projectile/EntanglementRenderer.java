@@ -22,11 +22,15 @@ public class EntanglementRenderer extends EntityRenderer<Entanglement> {
     @Override
     public void render(Entanglement entity, float entityYaw, float partialTicks,
                        PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+
         poseStack.pushPose();
 
-        poseStack.translate(0.0F, 0.0F, 0.0F);
+        // offset kalau model terlalu tinggi
+        poseStack.translate(0.0F, -1.5F, 0.0F);
+
+        // rotasi: Y = yaw, X = pitch
         poseStack.mulPose(Axis.YP.rotationDegrees(entity.getYRot() - 90.0F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(entity.getXRot()));
+        poseStack.mulPose(Axis.XP.rotationDegrees(entity.getXRot()));
 
         model.renderToBuffer(
                 poseStack,

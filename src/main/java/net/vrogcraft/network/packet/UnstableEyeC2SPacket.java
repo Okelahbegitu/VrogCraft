@@ -50,7 +50,7 @@ public class UnstableEyeC2SPacket {
                         1.0f, // volume
                         1.0f  // pitch
                 );
-                DelayedActionManager.startDelay(player, 25, () -> {
+                DelayedActionManager.startDelay(player, 15, () -> {
                 List<Entity> nearby = level.getEntities(player, player.getBoundingBox().inflate(radius));
                 ItemStack stack = player.getMainHandItem();
                 CompoundTag tag = stack.getOrCreateTag();

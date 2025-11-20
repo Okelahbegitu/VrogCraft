@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.vrogcraft.client.gui.CCManifestationSwordGUI;
 import net.vrogcraft.init.ModEntity;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 
@@ -72,6 +74,7 @@ public class Entanglement extends AbstractArrow {
         super.doPostHurtEffects(entity);
         this.setNoPhysics(false);
         if (!level().isClientSide) {
+            entity.setHealth(entity.getHealth() - 5.0f);
             entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 255, false, false));
             entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 255, false, false));
         }
@@ -103,19 +106,18 @@ public class Entanglement extends AbstractArrow {
 
         Entanglement projectile = new Entanglement(world, shooter);
 
-        // Sama seperti Arrow: tembak dari rotasi pemain
-        projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot(), 0.0F, velocity, inaccuracy);
+        // --- POSISI AWAL (lebih akurat dan sejajar kamera) ---
+        double x = shooter.getX() - (double)(Mth.cos(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F);
+        double y = shooter.getEyeY() - 0.15F; // BUKAN -1.0F
+        double z = shooter.getZ() - (double)(Mth.sin(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F);
+        projectile.setPos(x, y, z);
 
-        // Posisi awal — sedikit di depan mata pemain
-        projectile.setPos(
-                shooter.getX() - (double)(Mth.cos(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F),
-                shooter.getEyeY() - 1.0F,
-                shooter.getZ() - (double)(Mth.sin(shooter.getYRot() * ((float)Math.PI / 180F)) * 0.16F)
-        );
+        // --- ARAH TEMBAK —
+        projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot(), 0.0F, velocity, inaccuracy);
 
         projectile.setOwner(shooter);
         projectile.setPierceLevel((byte) piercing);
-        projectile.setNoGravity(true); // biar melayang lurus seperti energy beam
+        projectile.setNoGravity(true); // cocok untuk energy beam / bolt
 
         world.addFreshEntity(projectile);
     }

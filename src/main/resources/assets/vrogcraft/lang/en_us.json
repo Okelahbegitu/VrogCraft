@@ -9,5 +9,10 @@
   "key.categories.manifestation_sword_skill": "Manifestation Sword Skill KeyBind",
   "key.vrogcraft.unstable_eye": "Unstable Eye",
   "key.vrogcraft.mass_infection": "Mass Infection",
-  "key.vrogcraft.entanglement": "Entanglement"
+  "key.vrogcraft.entanglement": "Entanglement",
+  "ket.vrogcraft.second.manifestation_sword": "Second Manifestation Sword",
+  "item.vrogcraft.manifestation_sword.desc1": "Mass Infection         : Menembakan proyektil ke depan (no gravity) dan mob yang tekena (kecuali bukan living) akan dapat effect poisson lvl 5 3dtk, dan blindess lvl 2 5 detik dan damage 10 piercing 100. jika terkena blok, meledakan diri",
+  "item.vrogcraft.manifestation_sword.desc2": "Entanglement           : Melempar 2 pedang ke depan (no gravity) dengan piercing 100, mob (kecuali bukan living) yang terkena akan mendapatkan slownes lvl 255 5dtk dan blindess lvl 255 5 dtk dan damage 5. jika terkena blok, meledakan diri",
+  "item.vrogcraft.manifestation_sword.desc3": "Unstable eye           : Membutakan diri selama 5 detik dan jeda singkat, me-reveal semua entity (kecuali bukan living)  radius 100 blok",
+  "item.vrogcraft.manifestation_sword.desc4": "Rujenvenate The Rotten : Setiap mob terbunuh dengan pedang ini (kecual bukan living entity), menambah 1 Soul dengan maks 25. Setiap Soul membangkitkan 1 Minion-Gooner"
 }

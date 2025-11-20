@@ -83,4 +83,5 @@ public class goonerminionAI extends TamableAnimal {
     public @Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
         return null;
     }
+
 }

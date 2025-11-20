@@ -16,6 +16,7 @@ public class EntityDeathListener {
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) {
         Entity killer = event.getSource().getEntity();
+        Entity victim = event.getEntity();
         if (killer instanceof Player player) {
             ItemStack stack = player.getMainHandItem();
             if (stack.getItem() instanceof ManifestationSword) {
